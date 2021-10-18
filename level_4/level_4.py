@@ -24,7 +24,7 @@ header = {
     'If-None-Match': If_none_match,
     'referer': url
 }
-proxi_sites = ["https://free-proxy-list.net/", "https://www.us-proxy.org/"]
+proxi_sites = ["https://www.us-proxy.org/", "https://free-proxy-list.net/"]
 
 
 def current_vote():
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     while current_vote() < desired:
         session = requests.Session()
         response = session.get(proxi_sites[proxy_index])
-        proxy_index = proxy_index + 1 if proxy_index < 2 else 0
+        proxy_index ^= 1
 
         soup = BeautifulSoup(response.text, "html.parser")
         extern_proxis = soup.find("tbody").find_all("tr")
@@ -70,13 +70,19 @@ if __name__ == '__main__':
                 input = form.find("input", {"name": "key"})
                 key = input["value"]
                 directory['key'] = key
-                session.post(url, headers=header, data=directory,
-                             proxies=proxy, timeout=5)
-                print((session.Response))
+            except:
+                pass
+            try:
+                obj = session.post(url, headers=header, data=directory,
+                                   proxies=proxy, timeout=5)
+                status_code = obj.status_code
+                print(status_code)
+            except:
+                status_code = 200
+                print(status_code)
+            if status_code != 200:
                 current = current_vote()
-                print(f"The actual cuantity is : {current}")
                 if (current == desired - 1):
                     break
-            except:
-                # print("Was not possible")
+            else:
                 pass
