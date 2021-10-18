@@ -20,7 +20,7 @@ header = {
 }
 if __name__ == '__main__':
 
-    for i in range(1024-9):
+    for i in range(1024):
         session = requests.Session()
         response = session.get(url, headers=header)
         soup = BeautifulSoup(response.text, "html.parser")
