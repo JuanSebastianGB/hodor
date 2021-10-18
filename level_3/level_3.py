@@ -37,7 +37,7 @@ def get_captcha(path):
 
 if __name__ == '__main__':
     counter = 0
-    while counter < 14:
+    while counter < 1024:
         session = requests.Session()
         response = session.get(url, headers=header)
         soup = BeautifulSoup(response.text, "html.parser")
