@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Voting 1024 times in Hodor contest """
+""" Voting 98 times in Hodor contest """
 import requests
 from bs4 import BeautifulSoup
 
